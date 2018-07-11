@@ -32,45 +32,47 @@ namespace Idle_Slime
         public MainPage()
         {
             this.InitializeComponent();
+
             player = new Player();
+            player.Money = 1;
+
             player.Slimes = new List<Slime>()
             {
-                new Slime() {Name = "Slime", Picture = "Assets/slimes/slime.png", Multiplier = 1, Number = 5 },
-                new Slime() {Name = "Tabby", Picture = "Assets/slimes/tabby.png", Multiplier = 5 },
-                new Slime() {Name = "Rock", Picture = "Assets/slimes/rock.png", Multiplier = 25},
-                new Slime() {Name = "Phosphore", Picture = "Assets/slimes/phosphore.png", Multiplier = 100 },
+                new Slime("Slime", 1, 2, 1, "Assets/slimes/slime.png", player),
+                new Slime("Tabby", 25, 2, 5, "Assets/slimes/tabby.png", player),
+                new Slime("Rock", 125, 2, 25, "Assets/slimes/rock.png", player),
+                new Slime("Phosphore", 500, 2, 100, "Assets/slimes/phosphore.png", player)
             };
-
-            ObservableCollection<Slime> dataSlimes = new ObservableCollection<Slime>();
-            foreach(Slime slime in player.Slimes)
-            {
-                dataSlimes.Add(slime);
-            }
-            /*Slimes.ItemsSource = dataSlimes;
-            Slimes2.ItemsSource = dataSlimes;*/
-
+            Slimes.ItemsSource = player.Slimes;
+            
             TimeSpan period = TimeSpan.FromSeconds(1);
-
             ThreadPoolTimer PlortProduce = ThreadPoolTimer.CreatePeriodicTimer(async (source) =>
             {
-                //
-                // TODO: Work
-                //
-
-                //
-                // Update the UI thread by using the UI core dispatcher.
-                //
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     foreach (Slime slime in player.Slimes)
                     {
                         slime.Produce();
-                        Debug.WriteLine(slime.Name + " produced " + slime.Plorts);
-                        Slimes.ItemsSource = dataSlimes;
                     }
                 });
 
             }, period);
+        }
+
+        private void buy_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            Slime slime = player.Slimes.Find(s => s.Name == btn.Tag.ToString());
+            if (slime != null)
+                slime.TryBuy();
+        }
+
+        private void sell_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            Slime slime = player.Slimes.Find(s => s.Name == btn.Tag.ToString());
+            if (slime != null)
+                slime.Sell();
         }
     }
 }

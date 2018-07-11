@@ -11,21 +11,27 @@
 
     <Pivot x:Name="rootPivot" Title="Pivot Title">
         <PivotItem Header="Slimes">
-            <ListView x:Name="Slimes" ItemsSource="ViewModel.dataSlimes">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <RelativePanel Height="450" HorizontalAlignment="Stretch">
-                            <Image Name="image" Source="{Binding Picture}" Width="300" Height="300" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True"/>
-                            <TextBlock Name="race" Text="{Binding Name}" Height="150" Width="300" RelativePanel.RightOf="image" RelativePanel.AlignTopWithPanel="True"/>
-                            <TextBlock Name="multiplier" Text="{Binding MultiplierStr}" Height="150" Width="300" RelativePanel.RightOf="image" RelativePanel.Below="race"/>
-                            <TextBlock Name="number" Text="{Binding Number}" RelativePanel.RightOf="race" RelativePanel.AlignBottomWith="race" RelativePanel.AlignTopWith="race" RelativePanel.AlignRightWithPanel="True" MinWidth="1000"/>
-                            <TextBlock Name="plorts" Height="150" Text="{Binding Plorts}" RelativePanel.RightOf="multiplier" RelativePanel.Below="number" RelativePanel.AlignRightWithPanel="True" MinWidth="1000"/>
-                            <Button Name="buy" Height="150" Content="{Binding BuyText}" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Width="300"/>
-                            <Button Name="sell" Height="150" Content="Sell your plorts" RelativePanel.RightOf="buy" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignRightWithPanel="True" MinWidth="1000"/>
-                        </RelativePanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <ScrollViewer Grid.Column="0" Grid.Row="1" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Hidden">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding player.MoneyStr}" FontSize="30"/>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text=" "/>
+                    <ListView x:Name="Slimes" ItemsSource="ViewModel.player.Slimes">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <RelativePanel Height="450" HorizontalAlignment="Stretch">
+                                    <Image Name="image" Source="{Binding Picture}" Width="300" Height="300" RelativePanel.AlignTopWithPanel="True" RelativePanel.AlignLeftWithPanel="True"/>
+                                    <TextBlock Name="race" Text="{Binding Name}" Height="150" Width="300" RelativePanel.RightOf="image" RelativePanel.AlignTopWithPanel="True"/>
+                                    <TextBlock Name="multiplier" Text="{Binding MultiplierStr}" Height="150" Width="300" RelativePanel.RightOf="image" RelativePanel.Below="race"/>
+                                    <TextBlock Name="number" Text="{Binding Number}" RelativePanel.RightOf="race" RelativePanel.AlignBottomWith="race" RelativePanel.AlignTopWith="race" RelativePanel.AlignRightWithPanel="True" MinWidth="1000"/>
+                                    <TextBlock Name="plorts" Height="150" Text="{Binding Plorts}" RelativePanel.RightOf="multiplier" RelativePanel.Below="number" RelativePanel.AlignRightWithPanel="True" MinWidth="1000"/>
+                                    <Button Click="buy_Click" Tag="{Binding Name}" Name="buy" Height="150" Content="{Binding BuyText}" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Width="300"/>
+                                    <Button Click="sell_Click" Tag="{Binding Name}" Name="sell" Height="150" Content="Sell your plorts" RelativePanel.RightOf="buy" RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignRightWithPanel="True" MinWidth="1000"/>
+                                </RelativePanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+            </ScrollViewer>
         </PivotItem>
         <PivotItem Header="Pivot Item 2">
             <ListView x:Name="Slimes2" >
