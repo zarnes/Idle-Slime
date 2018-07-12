@@ -5,6 +5,7 @@
     xmlns:local="using:Idle_Slime"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Maps="using:Windows.UI.Xaml.Controls.Maps"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     DataContext="{Binding RelativeSource={RelativeSource Self}}">
@@ -52,8 +53,8 @@
                 </StackPanel>
             </ScrollViewer>
         </PivotItem>
-        <PivotItem Header="Pivot Item 3">
-            <TextBlock Text="Content of pivot item 3."/>
+        <PivotItem Header="A cool map">
+            <Maps:MapControl Name="MapControl" MapServiceToken="tWxrP6a47VjnIJV5Cw5W~aUruBHlTrVhtKgyb4YuIQQ~AlMXf58LYQwK9RgkbeTZdKLWaUq_TkKZiVHrG1ck6bmhSS2MdQvE_q5asNb-mX2v"/>
         </PivotItem>
     </Pivot>
 </Page>

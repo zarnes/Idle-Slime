@@ -4,12 +4,14 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using Windows.Devices.Geolocation;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.System.Threading;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Maps;
 
 // Pour plus d'informations sur le modèle d'élément Page vierge, consultez la page https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -28,7 +30,6 @@ namespace Idle_Slime
 
             player = new Player();
             LoadAsync();
-            
             
             TimeSpan period = TimeSpan.FromSeconds(1);
             ThreadPoolTimer PlortProduce = ThreadPoolTimer.CreatePeriodicTimer(async (source) =>
@@ -49,6 +50,8 @@ namespace Idle_Slime
                 });
 
             }, period);
+
+            LocateUserAsync();
         }
 
         private void buyFood_Click(object sender, RoutedEventArgs e)
@@ -163,6 +166,31 @@ namespace Idle_Slime
                 new Food("Painted Hen", 8, 2, "Assets/food/Painted_Hens.png", player, Food.Type.meat),
                 new Food("Roostro", 16, 2, "Assets/food/Roostro.png", player, Food.Type.meat),
             };
+        }
+
+        private async System.Threading.Tasks.Task LocateUserAsync()
+        {
+            var access = await Geolocator.RequestAccessAsync();
+            if (access == GeolocationAccessStatus.Allowed)
+            {
+                Geolocator locator = new Geolocator { DesiredAccuracyInMeters = 10 };
+                Geoposition position = await locator.GetGeopositionAsync();
+                float lat = (float)position.Coordinate.Point.Position.Latitude;
+                float lng = (float)position.Coordinate.Point.Position.Longitude;
+
+                BasicGeoposition location = new BasicGeoposition()
+                {
+                    Latitude = lat,
+                    Longitude = lng
+                };
+
+                MapIcon icon = new MapIcon();
+                icon.Location = new Geopoint(location);
+                icon.Title = "You are here yayy !";
+                
+                MapControl.MapElements.Add(icon);
+                MapControl.Center = new Geopoint(location);
+            }
         }
     }
 }
