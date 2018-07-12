@@ -110,6 +110,21 @@
     <None Include="Idle Slime_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\food\Briar_hen.png" />
+    <Content Include="Assets\food\Carrot.png" />
+    <Content Include="Assets\food\Cuberry.png" />
+    <Content Include="Assets\food\Heart_Beet.png" />
+    <Content Include="Assets\food\Hen_hen.png" />
+    <Content Include="Assets\food\Mint_mango.png" />
+    <Content Include="Assets\food\Oca_Oca.png" />
+    <Content Include="Assets\food\OddOnion_SP.png" />
+    <Content Include="Assets\food\Painted_Hens.png" />
+    <Content Include="Assets\food\PhaseLemon_SP.png" />
+    <Content Include="Assets\food\Pogo_fruit.png" />
+    <Content Include="Assets\food\Prickle_Pear.png" />
+    <Content Include="Assets\food\Roostro.png" />
+    <Content Include="Assets\food\Silver_Parsnip.png" />
+    <Content Include="Assets\food\Stony_hen.png" />
     <Content Include="Assets\Newbucks.png" />
     <Content Include="Assets\slimes\phosphore.png" />
     <Content Include="Assets\slimes\rock.png" />
@@ -140,6 +155,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.1.5</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>11.0.2</Version>
     </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

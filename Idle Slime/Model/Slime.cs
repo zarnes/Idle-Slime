@@ -41,7 +41,7 @@ namespace Idle_Slime.Model
         }
         public string BuyText
         {
-            get { return "Buy a slime (" + Price.ToString() + ")"; }
+            get { return "Buy a slime (" + Price.ToString() + " newbucks)"; }
         }
 
         private int _plorts;
@@ -64,8 +64,13 @@ namespace Idle_Slime.Model
         }
         public string Picture { get; set; }
 
+        public bool EatVeggie { get; set; }
+        public bool EatFruit { get; set; }
+        public bool EatMeat { get; set; }
+        public string Favourite { get; set; }
 
-        public Slime(string name, int basePrice, double priceMultiplier, int multiplier, string picture, Player player, int plorts = 0, int number = 0)
+
+        public Slime(string name, int basePrice, double priceMultiplier, int multiplier, string picture, Player player, bool eatVeggie, bool eatFruit, bool eatMeat, string favourite, int plorts = 0, int number = 0)
         {
             Name = name;
             _basePrice = basePrice;
@@ -73,6 +78,12 @@ namespace Idle_Slime.Model
             Multiplier = multiplier;
             Picture = picture;
             Player = player;
+
+            EatVeggie = eatVeggie;
+            EatFruit = eatFruit;
+            EatMeat = eatMeat;
+            Favourite = favourite;
+
             _plorts = plorts;
             _number = number;
 
@@ -103,7 +114,50 @@ namespace Idle_Slime.Model
 
         internal void Produce()
         {
-            Plorts += Number;
+            int slimesToFeed = Number;
+            Food favouriteFood = Player.Aliments.FirstOrDefault(a => a.Name == Favourite && a.Number >= 0);
+            if (favouriteFood != null)
+            {
+                // Not enough food for everyone
+                if (favouriteFood.Number < slimesToFeed)
+                {
+                    slimesToFeed -= favouriteFood.Number;
+                    Plorts += favouriteFood.Number * 2;
+                    favouriteFood.Number = 0;
+                }
+                // Enough food for everyone
+                else
+                {
+                    Plorts += slimesToFeed * 2;
+                    favouriteFood.Number -= slimesToFeed;
+                    return;
+                }
+            }
+
+            List<Food> foods = Player.Aliments.Where(a =>
+                   ((a.FoodType == Food.Type.veggie && EatVeggie) ||
+                   (a.FoodType == Food.Type.fruit && EatFruit) ||
+                   (a.FoodType == Food.Type.meat && EatMeat)) &&
+                   a.Number > 0).ToList();
+
+            foreach(Food food in foods)
+            {
+                // Not enough food for everyone
+                if (food.Number < slimesToFeed)
+                {
+                    slimesToFeed -= food.Number;
+                    Plorts += food.Number;
+                    food.Number = 0;
+                }
+                // Enough food for everyone
+                else
+                {
+                    Plorts += slimesToFeed;
+                    food.Number -= slimesToFeed;
+                    return;
+                }
+            }
+
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Plorts"));
         }
     }

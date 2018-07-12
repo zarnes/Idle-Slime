@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Numerics;
@@ -32,7 +33,8 @@ namespace Idle_Slime.Model
         }
 
 
-        public List<Slime> Slimes { get; set; }
+        public ObservableCollection<Slime> Slimes { get; set; }
+        public ObservableCollection<Food> Aliments { get; set; }
 
     }
 }
