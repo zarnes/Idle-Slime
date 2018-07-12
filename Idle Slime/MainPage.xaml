@@ -52,8 +52,5 @@
                 </StackPanel>
             </ScrollViewer>
         </PivotItem>
-        <PivotItem Header="Pivot Item 3">
-            <TextBlock Text="Content of pivot item 3."/>
-        </PivotItem>
     </Pivot>
 </Page>

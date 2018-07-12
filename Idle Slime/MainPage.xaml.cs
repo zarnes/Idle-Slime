@@ -118,7 +118,7 @@ namespace Idle_Slime
                 string json = await FileIO.ReadTextAsync(file);
                 Player pl = JsonConvert.DeserializeObject<Player>(json);
 
-                if (pl == null || pl.Slimes == null || pl.Aliments == null || true)
+                if (pl == null || pl.Slimes == null || pl.Aliments == null)
                     CreatePlayer();
                 else
                     player = pl;
@@ -140,7 +140,16 @@ namespace Idle_Slime
                 new Slime("Slime", 1, 2, 1, "Assets/slimes/slime.png", player, true, true, true, ""),
                 new Slime("Tabby", 25, 2, 5, "Assets/slimes/tabby.png", player, false, false, true, "Stony Hen"),
                 new Slime("Rock", 125, 2, 25, "Assets/slimes/rock.png", player, false, true, false, "Heart Beet"),
-                new Slime("Phosphore", 500, 2, 100, "Assets/slimes/phosphore.png", player, true, false, false, "Cuberry")
+                new Slime("Phosphore", 500, 2, 100, "Assets/slimes/phosphore.png", player, true, false, false, "Cuberry"),
+                new Slime("Boom", 2500, 2, 300, "Assets/slimes/boom.png", player, false, false, true, "Briar Hen"),
+                new Slime("Honey", 7000, 2, 400, "Assets/slimes/honey.png", player, false, true, false, "Mint Mango"),
+                new Slime("Rad", 10000, 2, 500, "Assets/slimes/rad.png", player, true, false, false, "Oca Oca"),
+                new Slime("Crystal", 50000, 2, 1500, "Assets/slimes/crystal.png", player, true, false, false, "Odd Onion"),
+                new Slime("Hunter", 100000, 2, 5000, "Assets/slimes/hunter.png", player, false, false, true, "Roostro"),
+                new Slime("Quantum", 200000, 2, 10000, "Assets/slimes/quantum.png", player, false, true, false, "Phase Lemon"),
+                new Slime("Tangle", 1000000, 2, 30000, "Assets/slimes/tangle.png", player, false, false, true, "Painted Hen"),
+                new Slime("Dervish", 5000000, 2, 150000, "Assets/slimes/dervish.png", player, false, true, false, "Prickle Pear"),
+                new Slime("Mosaic", 50000000, 2, 1000000, "Assets/slimes/mosaic.png", player, true, false, false, "Silver Parsnip"),
             };
 
             player.Aliments = new ObservableCollection<Food>()
